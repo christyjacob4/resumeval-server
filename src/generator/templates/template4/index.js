@@ -33,7 +33,7 @@ const generator: Template4Generator = {
       }
     }
 
-    const info = [email, phone, location.address, website]
+    const info = [email, phone, location, website]
       .filter(Boolean)
       .join(' | ')
 

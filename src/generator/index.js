@@ -21,10 +21,10 @@ import type { SanitizedValues } from '../types'
 
 function generatePDF(formData: SanitizedValues): Transform {
   const { texDoc, opts } = getTemplateData(formData)
-  console.log("[INFO] texDoc", texDoc)
-  console.log("[INFO] opts", opts)
+  // console.log("[INFO] texDoc", texDoc)
+  // console.log("[INFO] opts", opts)
   const pdf = latex(texDoc, opts)
-  console.log("[PDF] ", pdf)
+  // console.log("[PDF] ", pdf)
   return pdf
 }
 

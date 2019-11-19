@@ -143,11 +143,11 @@ const generator: Template2Generator = {
         } else {
           dateRange = endDate
         }
-
+      
         if (highlights) {
           dutyLines = source`
             \\begin{cvitems}
-              ${highlights.map(duty => `\\item {${duty}}`)}
+              ${highlights && highlights.split(/\r?\n/).map(duty => `\\item ${duty}`)}
             \\end{cvitems}
             `
         }
@@ -158,7 +158,7 @@ const generator: Template2Generator = {
             {${company || ''}}
             {${location || ''}}
             {${dateRange || ''}}
-            {${dutyLines}}
+            {${dutyLines || ''}}
         `
       })}
       \\end{cventries}
@@ -177,7 +177,8 @@ const generator: Template2Generator = {
       {}
       {\\def\\arraystretch{1.15}{\\begin{tabular}{ l l }
       ${skills.map(skill => {
-        const { name, keywords = [] } = skill
+        const name  = skill && skill.name;
+        const keywords  = skill && skill.keywords.split(/\r?\n/)
         const nameLine = name ? `${name}: ` : ''
         const detailsLine = `{\\skill{ ${keywords.join(', ') || ''}}}`
 
@@ -202,7 +203,8 @@ const generator: Template2Generator = {
       \\cvsection{${heading || 'Projects'}}
       \\begin{cventries}
       ${projects.map(project => {
-        const { name, description, keywords = [], url } = project
+        const { name, description, url } = project
+        const keywords = project && project.keywords.split(',')
 
         return stripIndent`
           \\cventry

@@ -21,9 +21,9 @@ router.use('/upload', formidable(), jsonResume()) // Parse multipart/form-data
  */
 
 router.post('/generate/resume', async ({ request, response }) => {
-  console.log("INFO in generate/resume ", request.body)
+  // console.log("INFO in generate/resume ", request.body)
   response.body = generatePDF((request.body: any))
-  console.log("[INFO] response.body", response.body)
+  // console.log("[INFO] response.body", response.body)
   response.type = 'application/pdf'
 })
 

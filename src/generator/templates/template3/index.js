@@ -126,7 +126,7 @@ const generator: Template3Generator = {
         if (highlights) {
           dutyLines = source`
             \\begin{itemize}
-              ${highlights.map(duty => `\\item ${duty}`)}
+              ${highlights && highlights.split(/\r?\n/).map(duty => `\\item ${duty}`)}
             \\end{itemize}
             `
         }
@@ -157,7 +157,8 @@ const generator: Template3Generator = {
       \\begin{itemize}[leftmargin=*]
       \\setlength\\itemsep{0em}
       ${skills.map(skill => {
-        const { name = '', keywords = [] } = skill
+        const name  = skill && skill.name;
+        const keywords  = skill && skill.keywords.split(/\r?\n/)
         return `\\item[] \\skill{${name}}{${keywords.join(', ')}}`
       })}
       \\end{itemize}
@@ -175,7 +176,8 @@ const generator: Template3Generator = {
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \\begin{itemize}[leftmargin=*]
       ${projects.map(project => {
-        const { name = '', description = '', keywords = [], url = '' } = project
+        const { name = '', description = '', url = '' } = project
+        const keywords = project && project.keywords.split(',')
 
         const descriptionWithNewline = description
           ? `\\\\${description}`
